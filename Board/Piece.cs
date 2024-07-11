@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace Board
 {
-    class Part
+    class Piece
     {
         public Position position {  get; set; }
         public Colour colour { get; protected set; }  
         public int qtdMovements { get; protected set; }
-        public Game_Board board { get; protected set; }
+        public GameBoard gameBoard { get; protected set; }
 
-        public Part(Game_Board board, Colour colour)
+        public Piece(GameBoard gameBoard, Colour colour)
         {
             this.position = null;
-            this.board = board;
+            this.gameBoard = gameBoard;
             this.colour = colour;        
             qtdMovements = 0;
         }

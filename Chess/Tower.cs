@@ -2,9 +2,9 @@
 
 namespace Chess
 {
-    class Tower : Part
+    class Tower : Piece
     {
-        public Tower(Game_Board game_Board, Colour colour) : base(game_Board, colour)
+        public Tower(GameBoard gameBoard, Colour colour) : base(gameBoard, colour)
         {
         }
         public override string ToString()

@@ -9,14 +9,20 @@ namespace xadrez_console
         static void Main(string[] args)
         {
 
-            Game_Board game_Board = new Game_Board(8, 8);
+            try
+            {
+                GameBoard gameBoard = new GameBoard(8, 8);
 
-            game_Board.placePart(new Tower(game_Board, Colour.Black), new Position(0, 0));
-            game_Board.placePart(new Tower(game_Board, Colour.Black), new Position(1, 3));
-            game_Board.placePart(new King(game_Board, Colour.Black), new Position(2, 4));
+                gameBoard.placePart(new Tower(gameBoard, Colour.Black), new Position(0, 0));
+                gameBoard.placePart(new Tower(gameBoard, Colour.Black), new Position(1, 3));
+                gameBoard.placePart(new King(gameBoard, Colour.Black), new Position(0, 9));
 
-            Screen.PrintBoard(game_Board);
-
+                Screen.PrintBoard(gameBoard);
+            }
+            catch (BoardException e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }
