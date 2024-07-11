@@ -1,6 +1,6 @@
 ﻿
 using Board;
-using System.Linq.Expressions;
+using Xadrez_console;
 
 namespace xadrez_console
 {
@@ -11,7 +11,8 @@ namespace xadrez_console
 
             Game_Board board = new Game_Board(8, 8);
 
-            
+            Screen.PrintBoard(board);
+
         }
     }
 }
