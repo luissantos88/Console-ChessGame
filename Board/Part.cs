@@ -13,12 +13,14 @@ namespace Board
         public int qtdMovements { get; protected set; }
         public Game_Board board { get; protected set; }
 
-        public Part(Position position, Colour colour, Game_Board board)
+        public Part(Game_Board board, Colour colour)
         {
-            this.position = position;
-            this.colour = colour;
+            this.position = null;
             this.board = board;
+            this.colour = colour;        
             qtdMovements = 0;
         }
+
+
     }
 }

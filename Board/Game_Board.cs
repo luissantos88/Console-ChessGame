@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Board
 {
@@ -22,6 +18,12 @@ namespace Board
         public Part part(int line, int column)
         {
             return parts[line, column];
+        }
+
+        public void placePart(Part p, Position pos)
+        {
+            parts[pos.line, pos.column] = p;
+            p.position = pos;
         }
     }
 }
