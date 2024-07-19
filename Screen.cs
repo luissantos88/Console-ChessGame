@@ -11,20 +11,37 @@ namespace Xadrez_console
 
             for (int i = 0; i < gameBoard.lines; i++)
             {
+                Console.Write(8 - i + " ");
                 for (int j = 0; j < gameBoard.columns; j++)
                 {
-                    if (gameBoard.part(i, j) == null)
+                    if (gameBoard.piece(i, j) == null)
                     {
                         Console.Write("- ");
                     }
                     else
                     {
-                        Console.Write(gameBoard.part(i, j) + " ");
+                        printPiece(gameBoard.piece(i, j));
+                        Console.Write(" ");
                     }
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine("  a b c d e f g h");
         }
 
+        public static void printPiece(Piece piece)
+        {
+            if (piece.colour == Colour.White)
+            {
+                Console.Write(piece);
+            }
+            else
+            {
+                ConsoleColor aux = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write(piece);
+                Console.ForegroundColor = aux;
+            }
+        }
     }
 }

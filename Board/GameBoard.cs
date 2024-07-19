@@ -15,25 +15,25 @@ namespace Board
             parts = new Piece[lines, columns];
         }
 
-        public Piece part(int line, int column)
+        public Piece piece(int line, int column)
         {
             return parts[line, column];
         }
 
-        public Piece part(Position pos)
+        public Piece piece(Position pos)
         {
-            return part(pos.line, pos.column);
+            return piece(pos.line, pos.column);
         }
 
-        public bool existsPArt(Position pos)
+        public bool existsPiece(Position pos)
         {
             validPosition(pos);
-            return part(pos) != null;
+            return piece(pos) != null;
         }
 
-        public void placePart(Piece p, Position pos)
+        public void placePiece(Piece p, Position pos)
         {
-            if (existsPArt(pos))
+            if (existsPiece(pos))
             {
                 throw new BoardException("Already exists a piece in this positon!!!");
             }
