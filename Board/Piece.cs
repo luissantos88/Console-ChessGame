@@ -8,8 +8,8 @@ namespace Board
 {
     class Piece
     {
-        public Position position {  get; set; }
-        public Colour colour { get; protected set; }  
+        public Position position { get; set; }
+        public Colour colour { get; protected set; }
         public int qtdMovements { get; protected set; }
         public GameBoard gameBoard { get; protected set; }
 
@@ -17,10 +17,14 @@ namespace Board
         {
             this.position = null;
             this.gameBoard = gameBoard;
-            this.colour = colour;        
+            this.colour = colour;
             qtdMovements = 0;
         }
 
+        public void incrementMovements()
+        { 
+            qtdMovements++; 
+        }
 
     }
 }
