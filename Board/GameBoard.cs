@@ -22,7 +22,7 @@ namespace Board
 
         public Piece piece(Position pos)
         {
-            return piece(pos.line, pos.column);
+            return pieces[pos.line, pos.column];
         }
 
         public bool existsPiece(Position pos)
@@ -52,9 +52,9 @@ namespace Board
             return aux;
         }
 
-        public bool positionValid(Position pos)
+        public bool positionIsValid(Position pos)
         {
-            if (pos.line < 0 || pos.line > lines || pos.column < 0 || pos.column > columns)
+            if (pos.line < 0 || pos.line >= lines || pos.column < 0 || pos.column >= columns)
             {
                 return false;
             }
@@ -62,7 +62,7 @@ namespace Board
         }
         public void validPosition(Position pos)
         {
-            if (!positionValid(pos))
+            if (!positionIsValid(pos))
             {
                 throw new BoardException("Invalid position!!!");
             }

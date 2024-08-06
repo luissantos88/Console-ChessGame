@@ -21,9 +21,14 @@ namespace xadrez_console
                     Console.WriteLine();
                     Console.Write("Orign: ");
                     Position orign = Screen.readChessPosition().toPosition();
+
+                    bool[,] possiblePositions = chessGame.gameBoard.piece(orign).possibleMovements();
+
+                    Console.Clear();
+                    Screen.PrintBoard(chessGame.gameBoard, possiblePositions);
+
                     Console.Write("Destiny: ");
                     Position destiny = Screen.readChessPosition().toPosition();
-
                     chessGame.executeMovement(orign, destiny);
 
                 }

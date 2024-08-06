@@ -20,5 +20,10 @@ namespace Board
                 + column;
         }
 
+        public void defineValors(int line, int column)
+        {
+            this.line = line;
+            this.column = column;
+        }
     }
 }

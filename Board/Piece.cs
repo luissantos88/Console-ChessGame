@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Board
 {
-    class Piece
+   abstract class Piece
     {
         public Position position { get; set; }
         public Colour colour { get; protected set; }
@@ -25,6 +25,6 @@ namespace Board
         { 
             qtdMovements++; 
         }
-
+        public abstract bool[,] possibleMovements();              
     }
 }
