@@ -14,26 +14,39 @@ namespace xadrez_console
 
                 while (!chessGame.finish)
                 {
+                    try
+                    {
+                        Console.Clear();
+                        Screen.PrintBoard(chessGame.gameBoard);
+                        Console.WriteLine();
 
-                    Console.Clear();
-                    Screen.PrintBoard(chessGame.gameBoard);
+                        Console.WriteLine("Move number: " + chessGame.shitf);
+                        Console.WriteLine("Waiting move from: " + chessGame.atualPlayer);
 
-                    Console.WriteLine();
-                    Console.Write("Orign: ");
-                    Position orign = Screen.readChessPosition().toPosition();
+                        Console.WriteLine();
+                        Console.Write("Orign: ");
+                        Position orign = Screen.readChessPosition().toPosition();
+                        chessGame.validateOrignPositon(orign);
 
-                    bool[,] possiblePositions = chessGame.gameBoard.piece(orign).possibleMovements();
+                        bool[,] possiblePositions = chessGame.gameBoard.piece(orign).possibleMovements();
 
-                    Console.Clear();
-                    Screen.PrintBoard(chessGame.gameBoard, possiblePositions);
+                        Console.Clear();
+                        Screen.PrintBoard(chessGame.gameBoard, possiblePositions);
 
-                    Console.Write("Destiny: ");
-                    Position destiny = Screen.readChessPosition().toPosition();
-                    chessGame.executeMovement(orign, destiny);
+                        Console.WriteLine();
+                        Console.Write("Destiny: ");
+                        Position destiny = Screen.readChessPosition().toPosition();
+                        chessGame.validateDestintyPosition(orign, destiny);
 
+                        chessGame.executeAMove(orign, destiny);
+
+                    }
+                    catch (BoardException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
                 }
-            
-                Screen.PrintBoard(chessGame.gameBoard);
 
             }
             catch (BoardException e)

@@ -11,14 +11,14 @@ namespace Chess
     class ChessGame
     {
         public GameBoard gameBoard {  get; private set; }
-        private int shift;
-        private Colour atualPlayer;
+        public int shitf { get; private set; }
+        public Colour atualPlayer { get; private set; }
         public bool finish {  get; private set; }
 
         public  ChessGame()
         {
             gameBoard = new GameBoard(8, 8);
-            shift = 1;
+            shitf = 1;
             atualPlayer = Colour.White;
             finish = false;
             placePieces();
@@ -30,6 +30,52 @@ namespace Chess
             p.incrementMovements();
             Piece capturePiece = gameBoard.removePiece(destiny);
             gameBoard.placePiece(p, destiny);
+        }
+
+        public void executeAMove(Position orign, Position destiny)
+        {
+            executeMovement(orign, destiny);
+            shitf++;
+            changePlayer();
+
+        }
+
+        public void validateOrignPositon(Position pos)
+        {
+            if (gameBoard.piece(pos) == null)
+            {
+                throw new BoardException("There is no piece to play in orgin positon!!!");
+            }
+
+            if (atualPlayer != gameBoard.piece(pos).colour)
+            {
+                throw new BoardException("This piece is not yours to play!!!");
+            }
+
+            if (!gameBoard.piece(pos).existsPossibleMovements())
+            {
+                throw new BoardException("There are no possible moves for the orign piece");
+            }
+        }
+
+        public void validateDestintyPosition(Position orign, Position destiy)
+        {
+            if (!gameBoard.piece(orign).canMoveTo(destiy))
+            {
+                throw new BoardException("Destiny position is invalid!!!");
+            }
+        }
+
+        public void changePlayer()
+        {
+            if (atualPlayer == Colour.White)
+            {
+                atualPlayer = Colour.Black;
+            }
+            else
+            {
+                atualPlayer = Colour.White;
+            }                
         }
 
         private void placePieces()
