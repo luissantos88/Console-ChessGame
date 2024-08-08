@@ -2,11 +2,46 @@
 
 using Board;
 using Chess;
+using System.Threading.Channels;
 
 namespace Xadrez_console
 {
     class Screen
     {
+
+        public static void printChessGame(ChessGame chessGame)
+        {
+            Screen.PrintBoard(chessGame.gameBoard);
+            Console.WriteLine();
+            printCapturedPieces(chessGame);
+            Console.WriteLine();
+            Console.WriteLine("Move: " + chessGame.shitf);
+            Console.WriteLine("Waiting move from: " + chessGame.atualPlayer);
+        }
+
+        public static void printCapturedPieces(ChessGame chessGame)
+        {
+            Console.WriteLine("Captured Pieces: ");
+            Console.Write("White: ");
+            printSetPieces(chessGame.capturedPieces(Colour.White));
+            Console.WriteLine();
+            Console.Write("Black: ");
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            printSetPieces(chessGame.capturedPieces(Colour.Black));
+            Console.ForegroundColor = aux;
+            Console.WriteLine();
+        }
+
+        public static void printSetPieces(HashSet<Piece> setPieces)
+        {
+            Console.Write("[");
+            foreach (Piece x in setPieces)
+            {
+                Console.Write(x + " ");
+            }
+            Console.Write("]");
+        }
         public static void PrintBoard(GameBoard gameBoard)
         {
 

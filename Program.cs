@@ -17,12 +17,9 @@ namespace xadrez_console
                     try
                     {
                         Console.Clear();
-                        Screen.PrintBoard(chessGame.gameBoard);
-                        Console.WriteLine();
 
-                        Console.WriteLine("Move number: " + chessGame.shitf);
-                        Console.WriteLine("Waiting move from: " + chessGame.atualPlayer);
-
+                        Screen.printChessGame(chessGame);
+                        
                         Console.WriteLine();
                         Console.Write("Orign: ");
                         Position orign = Screen.readChessPosition().toPosition();
