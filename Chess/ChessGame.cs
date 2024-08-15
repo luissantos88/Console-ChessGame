@@ -6,6 +6,8 @@ using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using xadrez;
+using Xadrez_console.Chess;
 
 namespace Chess
 {
@@ -226,12 +228,45 @@ namespace Chess
 
         private void placePieces()
         {
-            placeNewPiece('d', 1, new King(gameBoard, Colour.White));
-            placeNewPiece('c', 1, new Tower(gameBoard, Colour.White));
-            placeNewPiece('h', 7, new Tower(gameBoard, Colour.White));
+            //Black
+            placeNewPiece('a', 8, new Tower(gameBoard, Colour.Black));
+            placeNewPiece('b', 8, new Horse(gameBoard, Colour.Black));
+            placeNewPiece('c', 8, new Bishop(gameBoard, Colour.Black));
+            placeNewPiece('d', 8, new Queen(gameBoard, Colour.Black));
+            placeNewPiece('e', 8, new King(gameBoard, Colour.Black));
+            placeNewPiece('f', 8, new Bishop(gameBoard, Colour.Black));
+            placeNewPiece('g', 8, new Horse(gameBoard, Colour.Black));
+            placeNewPiece('h', 8, new Tower(gameBoard, Colour.Black));
+            placeNewPiece('a', 7, new Pawn(gameBoard, Colour.Black));
+            placeNewPiece('b', 7, new Pawn(gameBoard, Colour.Black));
+            placeNewPiece('c', 7, new Pawn(gameBoard, Colour.Black));
+            placeNewPiece('d', 7, new Pawn(gameBoard, Colour.Black));
+            placeNewPiece('e', 7, new Pawn(gameBoard, Colour.Black));
+            placeNewPiece('f', 7, new Pawn(gameBoard, Colour.Black));
+            placeNewPiece('g', 7, new Pawn(gameBoard, Colour.Black));
+            placeNewPiece('h', 7, new Pawn(gameBoard, Colour.Black));
+            
 
-            placeNewPiece('b', 8, new Tower(gameBoard, Colour.Black));
-            placeNewPiece('a', 8, new King(gameBoard, Colour.Black));          
+
+
+            //White
+            placeNewPiece('a', 1, new Tower(gameBoard, Colour.White));
+            placeNewPiece('b', 1, new Horse(gameBoard, Colour.White));
+            placeNewPiece('c', 1, new Bishop(gameBoard, Colour.White));
+            placeNewPiece('d', 1, new Queen(gameBoard, Colour.White));
+            placeNewPiece('e', 1, new King(gameBoard, Colour.White));
+            placeNewPiece('f', 1, new Bishop(gameBoard, Colour.White));
+            placeNewPiece('g', 1, new Horse(gameBoard, Colour.White));
+            placeNewPiece('h', 1, new Tower(gameBoard, Colour.White));
+            placeNewPiece('a', 2, new Pawn(gameBoard, Colour.White));
+            placeNewPiece('b', 2, new Pawn(gameBoard, Colour.White));
+            placeNewPiece('c', 2, new Pawn(gameBoard, Colour.White));
+            placeNewPiece('d', 2, new Pawn(gameBoard, Colour.White));
+            placeNewPiece('e', 2, new Pawn(gameBoard, Colour.White));
+            placeNewPiece('f', 2, new Pawn(gameBoard, Colour.White));
+            placeNewPiece('g', 2, new Pawn(gameBoard, Colour.White));
+            placeNewPiece('h', 2, new Pawn(gameBoard, Colour.White));
+
         }
     }
 }

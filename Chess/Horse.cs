@@ -2,14 +2,14 @@
 
 namespace Chess
 {
-    class King : Piece
+    class Horse : Piece
     {
-        public King(GameBoard gameBoard, Colour colour) : base(gameBoard, colour)
+        public Horse(GameBoard gameBoard, Colour colour) : base(gameBoard, colour)
         {
-        }        
+        }
         public override string ToString()
         {
-            return "R";
+            return "H";
         }
         private bool canMove(Position pos)
         {
@@ -22,54 +22,46 @@ namespace Chess
 
             Position pos = new Position(0, 0);
 
-            // up
-            pos.defineValors(position.line - 1, position.column);
-            if (gameBoard.positionIsValid(pos) && canMove(pos))
-                {
-                mat[pos.line, pos.column] = true;
-            }
-            // ne
-            pos.defineValors(position.line - 1, position.column + 1);
+            pos.defineValors(position.line - 1, position.column - 2);
             if (gameBoard.positionIsValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.column] = true;
             }
-            // right
-            pos.defineValors(position.line, position.column + 1);
+            pos.defineValors(position.line - 2, position.column - 1);
             if (gameBoard.positionIsValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.column] = true;
             }
-            // se
-            pos.defineValors(position.line + 1, position.column + 1);
+            pos.defineValors(position.line - 2, position.column + 1);
             if (gameBoard.positionIsValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.column] = true;
             }
-            // down
-            pos.defineValors(position.line + 1, position.column);
+            pos.defineValors(position.line - 1, position.column + 2);
             if (gameBoard.positionIsValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.column] = true;
             }
-            // so
-            pos.defineValors(position.line + 1, position.column - 1);
+            pos.defineValors(position.line + 1, position.column + 2);
             if (gameBoard.positionIsValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.column] = true;
             }
-            // left
-            pos.defineValors(position.line, position.column - 1);
+            pos.defineValors(position.line + 2, position.column + 1);
             if (gameBoard.positionIsValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.column] = true;
             }
-            // no
-            pos.defineValors(position.line - 1, position.column - 1);
+            pos.defineValors(position.line + 2, position.column - 1);
             if (gameBoard.positionIsValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.column] = true;
             }
+            pos.defineValors(position.line + 1, position.column - 2);
+            if (gameBoard.positionIsValid(pos) && canMove(pos))
+            {
+                mat[pos.line, pos.column] = true;
+            }           
             return mat;
         }
     }
