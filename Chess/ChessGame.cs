@@ -30,7 +30,6 @@ namespace Chess
             captured = new HashSet<Piece>();
             placePieces();
         }
-
         public Piece executeMovement(Position orign, Position destiny)
         {
             Piece p = gameBoard.removePiece(orign);
@@ -43,7 +42,6 @@ namespace Chess
             }
             return capturePiece;
         }
-
         public void cancelMovement(Position orign, Position destiny, Piece capturedPiece)
         {
             Piece p = gameBoard.removePiece(destiny);
@@ -84,7 +82,6 @@ namespace Chess
                 changePlayer();
             }
         }
-
         public void validateOrignPositon(Position pos)
         {
             if (gameBoard.piece(pos) == null)
@@ -102,15 +99,13 @@ namespace Chess
                 throw new BoardException("There are no possible moves for the orign piece");
             }
         }
-
         public void validateDestintyPosition(Position orign, Position destiy)
         {
-            if (!gameBoard.piece(orign).canMoveTo(destiy))
+            if (!gameBoard.piece(orign).possibleMovement(destiy))
             {
                 throw new BoardException("Destiny position is invalid!!!");
             }
         }
-
         public void changePlayer()
         {
             if (atualPlayer == Colour.White)
