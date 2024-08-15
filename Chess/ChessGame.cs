@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,15 +11,15 @@ namespace Chess
 {
     class ChessGame
     {
-        public GameBoard gameBoard {  get; private set; }
+        public GameBoard gameBoard { get; private set; }
         public int shitf { get; private set; }
         public Colour atualPlayer { get; private set; }
-        public bool finish {  get; private set; }
+        public bool finish { get; private set; }
         private HashSet<Piece> pieces;
         private HashSet<Piece> captured;
-        public bool check {  get; private set; }
+        public bool check { get; private set; }
 
-        public  ChessGame()
+        public ChessGame()
         {
             gameBoard = new GameBoard(8, 8);
             shitf = 1;
@@ -43,17 +44,17 @@ namespace Chess
             return capturePiece;
         }
 
-        public void cancelMovement(Position orign, Position destiny, Piece capturedPiece) 
+        public void cancelMovement(Position orign, Position destiny, Piece capturedPiece)
+        {
+            Piece p = gameBoard.removePiece(destiny);
+            p.decreaseMovements();
+            if (capturedPiece != null)
             {
-                Piece p = gameBoard.removePiece(destiny);
-                p.decreaseMovements();
-                if(capturedPiece != null)
-                {
-                    gameBoard.placePiece(capturedPiece, destiny);
-                    captured.Remove(capturedPiece);
-                }
-                gameBoard.placePiece(p, orign);
+                gameBoard.placePiece(capturedPiece, destiny);
+                captured.Remove(capturedPiece);
             }
+            gameBoard.placePiece(p, orign);
+        }
         public void executeAMove(Position orign, Position destiny)
         {
             Piece capturedPiece = executeMovement(orign, destiny);
@@ -61,7 +62,7 @@ namespace Chess
             if (isInCheck(atualPlayer))
             {
                 cancelMovement(orign, destiny, capturedPiece);
-                throw new BoardException("You can´t put yourself in check");
+                throw new BoardException("You can´t put yourself in check!!!");
             }
 
             if (isInCheck(adversary(atualPlayer)))
@@ -73,9 +74,15 @@ namespace Chess
                 check = false;
             }
 
-            shitf++;
-            changePlayer();
-
+            if (testCheckMate(adversary(atualPlayer)))
+            {
+                finish = true;
+            }
+            else
+            {
+                shitf++;
+                changePlayer();
+            }
         }
 
         public void validateOrignPositon(Position pos)
@@ -113,7 +120,7 @@ namespace Chess
             else
             {
                 atualPlayer = Colour.White;
-            }                
+            }
         }
 
         public HashSet<Piece> capturedPieces(Colour colour)
@@ -123,7 +130,7 @@ namespace Chess
             {
                 if (x.colour == colour)
                 {
-                aux.Add(x);
+                    aux.Add(x);
                 }
             }
             return aux;
@@ -162,7 +169,7 @@ namespace Chess
                 if (x is King)
                 {
                     return x;
-                }                                               
+                }
             }
             return null;
         }
@@ -172,17 +179,48 @@ namespace Chess
             Piece K = king(colour);
             if (K == null)
             {
-                throw new BoardException("There is no king " +  colour + " in the board");
+                throw new BoardException("There is no king " + colour + " in the board");
             }
             foreach (Piece x in piecesInGame(adversary(colour)))
             {
                 bool[,] mat = x.possibleMovements();
                 if (mat[K.position.line, K.position.column])
                 {
-                    return true;   
+                    return true;
                 }
             }
             return false;
+        }
+
+        public bool testCheckMate(Colour colour)
+        {
+            if (!isInCheck(colour))
+            {
+                return false;
+            }
+            foreach (Piece x in piecesInGame(colour))
+            {
+                bool[,] mat = x.possibleMovements();
+                for (int i = 0; i < gameBoard.lines; i++)
+                {
+                    for (int j = 0; j < gameBoard.columns; j++)
+                    {
+                        if (mat[i, j])
+                        {
+                            Position orign = x.position;
+                            Position destiny = new Position(i, j);
+                            Piece capturedPiece = executeMovement(orign, destiny);
+                            bool testCheck = isInCheck(colour);
+                            cancelMovement(orign, destiny, capturedPiece);
+                            if (!testCheck)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
         public void placeNewPiece(char column, int line, Piece piece)
@@ -193,20 +231,12 @@ namespace Chess
 
         private void placePieces()
         {
-            placeNewPiece('c', 1, new Tower(gameBoard, Colour.White));
-            placeNewPiece('c', 2, new Tower(gameBoard, Colour.White));
-            placeNewPiece('d', 2, new Tower(gameBoard, Colour.White));
-            placeNewPiece('e', 2, new Tower(gameBoard, Colour.White));
-            placeNewPiece('e', 1, new Tower(gameBoard, Colour.White));
             placeNewPiece('d', 1, new King(gameBoard, Colour.White));
+            placeNewPiece('c', 1, new Tower(gameBoard, Colour.White));
+            placeNewPiece('h', 7, new Tower(gameBoard, Colour.White));
 
-            placeNewPiece('c', 7, new Tower(gameBoard, Colour.Black));
-            placeNewPiece('c', 8, new Tower(gameBoard, Colour.Black));
-            placeNewPiece('d', 7, new Tower(gameBoard, Colour.Black));
-            placeNewPiece('e', 7, new Tower(gameBoard, Colour.Black));
-            placeNewPiece('e', 8, new Tower(gameBoard, Colour.Black));
-            placeNewPiece('d', 8, new King(gameBoard, Colour.Black));
-            
+            placeNewPiece('b', 8, new Tower(gameBoard, Colour.Black));
+            placeNewPiece('a', 8, new King(gameBoard, Colour.Black));          
         }
     }
 }

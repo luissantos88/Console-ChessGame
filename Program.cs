@@ -44,6 +44,8 @@ namespace xadrez_console
                         Console.ReadLine();
                     }
                 }
+                Console.Clear();
+                Screen.printChessGame(chessGame);
             }
             catch (BoardException e)
             {

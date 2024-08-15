@@ -16,11 +16,19 @@ namespace Xadrez_console
             printCapturedPieces(chessGame);
             Console.WriteLine();
             Console.WriteLine("Move: " + chessGame.shitf);
-            Console.WriteLine("Waiting move from: " + chessGame.atualPlayer);
-            if (chessGame.check)
+            if (!chessGame.finish)
             {
-                Console.WriteLine("CHECK!!!!!");
+                Console.WriteLine("Waiting move from: " + chessGame.atualPlayer);
+                if (chessGame.check)
+                {
+                    Console.WriteLine("CHECK!!!!!");
+                }
             }
+            else
+            {
+                Console.WriteLine("CHECKMATE!!!!!");
+                Console.WriteLine("The winner is : " + chessGame.atualPlayer);
+            }           
         }
 
         public static void printCapturedPieces(ChessGame chessGame)
