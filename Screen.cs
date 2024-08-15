@@ -17,6 +17,10 @@ namespace Xadrez_console
             Console.WriteLine();
             Console.WriteLine("Move: " + chessGame.shitf);
             Console.WriteLine("Waiting move from: " + chessGame.atualPlayer);
+            if (chessGame.check)
+            {
+                Console.WriteLine("CHECK!!!!!");
+            }
         }
 
         public static void printCapturedPieces(ChessGame chessGame)

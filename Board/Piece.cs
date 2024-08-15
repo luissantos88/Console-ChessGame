@@ -25,7 +25,10 @@ namespace Board
         { 
             qtdMovements++; 
         }
-
+        public void decreaseMovements()
+        {
+            qtdMovements--;
+        }
         public bool existsPossibleMovements()
         {
             bool[,] mat = possibleMovements();

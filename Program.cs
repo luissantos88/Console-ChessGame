@@ -44,7 +44,6 @@ namespace xadrez_console
                         Console.ReadLine();
                     }
                 }
-
             }
             catch (BoardException e)
             {
