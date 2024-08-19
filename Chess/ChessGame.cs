@@ -1,4 +1,5 @@
 ﻿using Board;
+using System.ComponentModel;
 using xadrez;
 using Xadrez_console.Chess;
 
@@ -144,6 +145,21 @@ namespace Chess
                 throw new BoardException("You can´t put yourself in check!!!");
             }
 
+            Piece p = gameBoard.piece(destiny);
+
+            // #specialMove promotion
+            if (p is Pawn)
+            {
+                if (p.colour == Colour.White && destiny.line == 0 || p.colour == Colour.Black && destiny.line == 7)
+                {
+                    p = gameBoard.removePiece(destiny);
+                    pieces.Remove(p);
+                    Piece queen = new Queen(gameBoard, p.colour);
+                    gameBoard.placePiece(queen, destiny);
+                    pieces.Add(queen);
+                }
+            }
+
             if (isInCheck(adversary(atualPlayer)))
             {
                 check = true;
@@ -162,9 +178,7 @@ namespace Chess
                 shitf++;
                 changePlayer();
             }
-
-            Piece p = gameBoard.piece(destiny);
-
+          
             // #specialMove en passant
             if (p is Pawn && (destiny.line == orign.line - 2 || destiny.line == orign.line + 2))
             {
