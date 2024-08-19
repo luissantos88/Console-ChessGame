@@ -1,12 +1,16 @@
 ﻿using Board;
+using Chess;
 
 namespace xadrez
 {
 
     class Pawn : Piece
     {
-        public Pawn(GameBoard gameBoard, Colour colour) : base(gameBoard, colour)
+        private ChessGame chessGame;
+
+        public Pawn(GameBoard gameBoard, Colour colour, ChessGame chessGame) : base(gameBoard, colour)
         {
+            this.chessGame = chessGame;
         }
 
         public override string ToString()
@@ -53,7 +57,23 @@ namespace xadrez
                 if (gameBoard.positionIsValid(pos) && thereIsEnemy(pos))
                 {
                     mat[pos.line, pos.column] = true;
-                }               
+                }
+
+                // #specialMove en passant
+                if (position.line == 3)
+                {
+                    Position left = new Position(position.line, position.column - 1);
+                    if (gameBoard.positionIsValid(left) && thereIsEnemy(left) && gameBoard.piece(left) == chessGame.openToEnPassant)
+                    {
+                        mat[left.line - 1, left.column] = true;
+                    }
+
+                    Position right = new Position(position.line, position.column + 1);
+                    if (gameBoard.positionIsValid(right) && thereIsEnemy(right) && gameBoard.piece(right) == chessGame.openToEnPassant)
+                    {
+                        mat[right.line - 1, right.column] = true;
+                    }
+                }
             }
             else
             {
@@ -77,6 +97,22 @@ namespace xadrez
                 if (gameBoard.positionIsValid(pos) && thereIsEnemy(pos))
                 {
                     mat[pos.line, pos.column] = true;
+                }
+
+                // #specialMove en passant
+                if (position.line == 4)
+                {
+                    Position left = new Position(position.line, position.column - 1);
+                    if (gameBoard.positionIsValid(left) && thereIsEnemy(left) && gameBoard.piece(left) == chessGame.openToEnPassant)
+                    {
+                        mat[left.line + 1, left.column] = true;
+                    }
+
+                    Position right = new Position(position.line, position.column + 1);
+                    if (gameBoard.positionIsValid(right) && thereIsEnemy(right) && gameBoard.piece(right) == chessGame.openToEnPassant)
+                    {
+                        mat[right.line + 1, right.column] = true;
+                    }
                 }
             }
             return mat;

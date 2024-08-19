@@ -5,7 +5,6 @@ namespace Xadrez_console
 {
     class Screen
     {
-
         public static void printChessGame(ChessGame chessGame)
         {
             PrintBoard(chessGame.gameBoard);
@@ -27,7 +26,6 @@ namespace Xadrez_console
                 Console.WriteLine("The winner is : " + chessGame.atualPlayer);
             }           
         }
-
         public static void printCapturedPieces(ChessGame chessGame)
         {
             Console.WriteLine("Captured Pieces: ");
@@ -41,7 +39,6 @@ namespace Xadrez_console
             Console.ForegroundColor = aux;
             Console.WriteLine();
         }
-
         public static void printSetPieces(HashSet<Piece> setPieces)
         {
             Console.Write("[");
@@ -65,7 +62,6 @@ namespace Xadrez_console
             }
             Console.WriteLine("  a b c d e f g h");
         }
-
         public static void PrintBoard(GameBoard gameBoard, bool[,] possiblePositions)
         {
             ConsoleColor originalBackground = Console.BackgroundColor;
@@ -92,7 +88,6 @@ namespace Xadrez_console
             Console.WriteLine("  a b c d e f g h");
             Console.BackgroundColor = originalBackground;
         }
-
         public static ChessPosition readChessPosition()
         {
             var s = Console.ReadLine();
@@ -100,7 +95,6 @@ namespace Xadrez_console
             int line = int.Parse(s[1] + "");
             return new ChessPosition(column, line);
         }
-
         public static void printPiece(Piece piece)
         {
             if (piece == null)

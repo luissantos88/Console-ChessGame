@@ -13,6 +13,7 @@ namespace Chess
         private HashSet<Piece> pieces;
         private HashSet<Piece> captured;
         public bool check { get; private set; }
+        public Piece openToEnPassant { get; private set; }
 
         public ChessGame()
         {
@@ -21,6 +22,7 @@ namespace Chess
             atualPlayer = Colour.White;
             finish = false;
             check = false;
+            openToEnPassant = null;
             pieces = new HashSet<Piece>();
             captured = new HashSet<Piece>();
             placePieces();
@@ -55,6 +57,32 @@ namespace Chess
                 T.incrementMovements();
                 gameBoard.placePiece(T, towerDestiny);
             }
+
+            // #specialMove en passant
+            if (p is Pawn)
+            {
+                if (orign.column != destiny.column && capturePiece == null)
+                {
+                    Position pawnAdversaryPos;
+                    {
+                        if (p.colour == Colour.White)
+                        {
+                            pawnAdversaryPos = new Position(destiny.line + 1, destiny.column);
+                        }
+                        else
+                        {
+                            pawnAdversaryPos = new Position(destiny.line - 1, destiny.column);
+                        }
+
+                        capturePiece = gameBoard.removePiece(pawnAdversaryPos);
+                        captured.Add(capturePiece); 
+                    }
+                }
+            }
+
+
+
+
             return capturePiece;
         }
         public void cancelMovement(Position orign, Position destiny, Piece capturedPiece)
@@ -86,6 +114,25 @@ namespace Chess
                 T.decreaseMovements();
                 gameBoard.placePiece(T, towerOrign);
             }
+
+            // #specialMove en passant
+            if (p is Pawn)
+            {
+                if (orign.column != destiny.column && capturedPiece == openToEnPassant)
+                {
+                    Piece pawn = gameBoard.removePiece(destiny);
+                    Position pawnPosition;
+                    if(p.colour == Colour.White)
+                    {
+                        pawnPosition = new Position(3, destiny.column);
+                    }
+                    else
+                    {
+                        pawnPosition = new Position(4, destiny.column);
+                    }
+                    gameBoard.placePiece(pawn, pawnPosition);
+                }
+            }
         }
         public void executeAMove(Position orign, Position destiny)
         {
@@ -114,6 +161,18 @@ namespace Chess
             {
                 shitf++;
                 changePlayer();
+            }
+
+            Piece p = gameBoard.piece(destiny);
+
+            // #specialMove en passant
+            if (p is Pawn && (destiny.line == orign.line - 2 || destiny.line == orign.line + 2))
+            {
+                openToEnPassant = p;
+            }
+            else
+            {
+                openToEnPassant = null;
             }
         }
         public void validateOrignPositon(Position pos)
@@ -269,14 +328,14 @@ namespace Chess
             placeNewPiece('f', 1, new Bishop(gameBoard, Colour.White));
             placeNewPiece('g', 1, new Horse(gameBoard, Colour.White));
             placeNewPiece('h', 1, new Tower(gameBoard, Colour.White));
-            placeNewPiece('a', 2, new Pawn(gameBoard, Colour.White));
-            placeNewPiece('b', 2, new Pawn(gameBoard, Colour.White));
-            placeNewPiece('c', 2, new Pawn(gameBoard, Colour.White));
-            placeNewPiece('d', 2, new Pawn(gameBoard, Colour.White));
-            placeNewPiece('e', 2, new Pawn(gameBoard, Colour.White));
-            placeNewPiece('f', 2, new Pawn(gameBoard, Colour.White));
-            placeNewPiece('g', 2, new Pawn(gameBoard, Colour.White));
-            placeNewPiece('h', 2, new Pawn(gameBoard, Colour.White));
+            placeNewPiece('a', 2, new Pawn(gameBoard, Colour.White, this));
+            placeNewPiece('b', 2, new Pawn(gameBoard, Colour.White, this));
+            placeNewPiece('c', 2, new Pawn(gameBoard, Colour.White, this));
+            placeNewPiece('d', 2, new Pawn(gameBoard, Colour.White, this));
+            placeNewPiece('e', 2, new Pawn(gameBoard, Colour.White, this));
+            placeNewPiece('f', 2, new Pawn(gameBoard, Colour.White, this));
+            placeNewPiece('g', 2, new Pawn(gameBoard, Colour.White, this));
+            placeNewPiece('h', 2, new Pawn(gameBoard, Colour.White, this));
 
             //Black
             placeNewPiece('a', 8, new Tower(gameBoard, Colour.Black));
@@ -287,14 +346,14 @@ namespace Chess
             placeNewPiece('f', 8, new Bishop(gameBoard, Colour.Black));
             placeNewPiece('g', 8, new Horse(gameBoard, Colour.Black));
             placeNewPiece('h', 8, new Tower(gameBoard, Colour.Black));
-            placeNewPiece('a', 7, new Pawn(gameBoard, Colour.Black));
-            placeNewPiece('b', 7, new Pawn(gameBoard, Colour.Black));
-            placeNewPiece('c', 7, new Pawn(gameBoard, Colour.Black));
-            placeNewPiece('d', 7, new Pawn(gameBoard, Colour.Black));
-            placeNewPiece('e', 7, new Pawn(gameBoard, Colour.Black));
-            placeNewPiece('f', 7, new Pawn(gameBoard, Colour.Black));
-            placeNewPiece('g', 7, new Pawn(gameBoard, Colour.Black));
-            placeNewPiece('h', 7, new Pawn(gameBoard, Colour.Black));
+            placeNewPiece('a', 7, new Pawn(gameBoard, Colour.Black, this));
+            placeNewPiece('b', 7, new Pawn(gameBoard, Colour.Black, this));
+            placeNewPiece('c', 7, new Pawn(gameBoard, Colour.Black, this));
+            placeNewPiece('d', 7, new Pawn(gameBoard, Colour.Black, this));
+            placeNewPiece('e', 7, new Pawn(gameBoard, Colour.Black, this));
+            placeNewPiece('f', 7, new Pawn(gameBoard, Colour.Black, this));
+            placeNewPiece('g', 7, new Pawn(gameBoard, Colour.Black, this));
+            placeNewPiece('h', 7, new Pawn(gameBoard, Colour.Black, this));
 
         }
     }
