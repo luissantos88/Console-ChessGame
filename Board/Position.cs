@@ -13,17 +13,16 @@ namespace Board
             this.column = column;
         }
 
-        public override string ToString()
-        {
-            return line 
-                + ", " 
-                + column;
-        }
-
         public void defineValors(int line, int column)
         {
             this.line = line;
             this.column = column;
         }
+        public override string ToString()
+        {
+            return line 
+                + ", " 
+                + column;
+        }      
     }
 }

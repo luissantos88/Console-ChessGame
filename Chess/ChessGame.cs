@@ -1,11 +1,4 @@
 ﻿using Board;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using xadrez;
 using Xadrez_console.Chess;
 
@@ -42,6 +35,26 @@ namespace Chess
             {
                 captured.Add(capturePiece);
             }
+
+            // #specialMove small castling
+            if (p is King && destiny.column == orign.column + 2)
+            {
+                Position towerOrign = new Position(orign.line, orign.column + 3);
+                Position towerDestiny = new Position(orign.line, orign.column + 1);
+                Piece T = gameBoard.removePiece(towerOrign);
+                T.incrementMovements();
+                gameBoard.placePiece(T, towerDestiny);
+            }
+
+            // #specialMove big castling
+            if (p is King && destiny.column == orign.column - 2)
+            {
+                Position towerOrign = new Position(orign.line, orign.column - 4);
+                Position towerDestiny = new Position(orign.line, orign.column - 1);
+                Piece T = gameBoard.removePiece(towerOrign);
+                T.incrementMovements();
+                gameBoard.placePiece(T, towerDestiny);
+            }
             return capturePiece;
         }
         public void cancelMovement(Position orign, Position destiny, Piece capturedPiece)
@@ -54,6 +67,25 @@ namespace Chess
                 captured.Remove(capturedPiece);
             }
             gameBoard.placePiece(p, orign);
+
+            // #specialMove small castling
+            if (p is King && destiny.column == orign.column + 2)
+            {
+                Position towerOrign = new Position(orign.line, orign.column + 3);
+                Position towerDestiny = new Position(orign.line, orign.column + 1);
+                Piece T = gameBoard.removePiece(towerOrign);
+                T.decreaseMovements();
+                gameBoard.placePiece(T, towerOrign);
+            }
+            // #specialMove big castling
+            if (p is King && destiny.column == orign.column - 2)
+            {
+                Position towerOrign = new Position(orign.line, orign.column - 4);
+                Position towerDestiny = new Position(orign.line, orign.column - 1);
+                Piece T = gameBoard.removePiece(towerOrign);
+                T.decreaseMovements();
+                gameBoard.placePiece(T, towerOrign);
+            }
         }
         public void executeAMove(Position orign, Position destiny)
         {
@@ -227,34 +259,13 @@ namespace Chess
         }
 
         private void placePieces()
-        {
-            //Black
-            placeNewPiece('a', 8, new Tower(gameBoard, Colour.Black));
-            placeNewPiece('b', 8, new Horse(gameBoard, Colour.Black));
-            placeNewPiece('c', 8, new Bishop(gameBoard, Colour.Black));
-            placeNewPiece('d', 8, new Queen(gameBoard, Colour.Black));
-            placeNewPiece('e', 8, new King(gameBoard, Colour.Black));
-            placeNewPiece('f', 8, new Bishop(gameBoard, Colour.Black));
-            placeNewPiece('g', 8, new Horse(gameBoard, Colour.Black));
-            placeNewPiece('h', 8, new Tower(gameBoard, Colour.Black));
-            placeNewPiece('a', 7, new Pawn(gameBoard, Colour.Black));
-            placeNewPiece('b', 7, new Pawn(gameBoard, Colour.Black));
-            placeNewPiece('c', 7, new Pawn(gameBoard, Colour.Black));
-            placeNewPiece('d', 7, new Pawn(gameBoard, Colour.Black));
-            placeNewPiece('e', 7, new Pawn(gameBoard, Colour.Black));
-            placeNewPiece('f', 7, new Pawn(gameBoard, Colour.Black));
-            placeNewPiece('g', 7, new Pawn(gameBoard, Colour.Black));
-            placeNewPiece('h', 7, new Pawn(gameBoard, Colour.Black));
-            
-
-
-
+        {                
             //White
             placeNewPiece('a', 1, new Tower(gameBoard, Colour.White));
             placeNewPiece('b', 1, new Horse(gameBoard, Colour.White));
             placeNewPiece('c', 1, new Bishop(gameBoard, Colour.White));
             placeNewPiece('d', 1, new Queen(gameBoard, Colour.White));
-            placeNewPiece('e', 1, new King(gameBoard, Colour.White));
+            placeNewPiece('e', 1, new King(gameBoard, Colour.White, this));
             placeNewPiece('f', 1, new Bishop(gameBoard, Colour.White));
             placeNewPiece('g', 1, new Horse(gameBoard, Colour.White));
             placeNewPiece('h', 1, new Tower(gameBoard, Colour.White));
@@ -266,6 +277,24 @@ namespace Chess
             placeNewPiece('f', 2, new Pawn(gameBoard, Colour.White));
             placeNewPiece('g', 2, new Pawn(gameBoard, Colour.White));
             placeNewPiece('h', 2, new Pawn(gameBoard, Colour.White));
+
+            //Black
+            placeNewPiece('a', 8, new Tower(gameBoard, Colour.Black));
+            placeNewPiece('b', 8, new Horse(gameBoard, Colour.Black));
+            placeNewPiece('c', 8, new Bishop(gameBoard, Colour.Black));
+            placeNewPiece('d', 8, new Queen(gameBoard, Colour.Black));
+            placeNewPiece('e', 8, new King(gameBoard, Colour.Black, this));
+            placeNewPiece('f', 8, new Bishop(gameBoard, Colour.Black));
+            placeNewPiece('g', 8, new Horse(gameBoard, Colour.Black));
+            placeNewPiece('h', 8, new Tower(gameBoard, Colour.Black));
+            placeNewPiece('a', 7, new Pawn(gameBoard, Colour.Black));
+            placeNewPiece('b', 7, new Pawn(gameBoard, Colour.Black));
+            placeNewPiece('c', 7, new Pawn(gameBoard, Colour.Black));
+            placeNewPiece('d', 7, new Pawn(gameBoard, Colour.Black));
+            placeNewPiece('e', 7, new Pawn(gameBoard, Colour.Black));
+            placeNewPiece('f', 7, new Pawn(gameBoard, Colour.Black));
+            placeNewPiece('g', 7, new Pawn(gameBoard, Colour.Black));
+            placeNewPiece('h', 7, new Pawn(gameBoard, Colour.Black));
 
         }
     }

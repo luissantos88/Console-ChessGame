@@ -1,8 +1,5 @@
-﻿
-
-using Board;
+﻿using Board;
 using Chess;
-using System.Threading.Channels;
 
 namespace Xadrez_console
 {
@@ -11,7 +8,7 @@ namespace Xadrez_console
 
         public static void printChessGame(ChessGame chessGame)
         {
-            Screen.PrintBoard(chessGame.gameBoard);
+            PrintBoard(chessGame.gameBoard);
             Console.WriteLine();
             printCapturedPieces(chessGame);
             Console.WriteLine();
