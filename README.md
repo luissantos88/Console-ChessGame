@@ -5,7 +5,7 @@
 
 ## Description
 
-During the C# course on Udemy "C# COMPLETO Programação Orientada a Objetos + Projetos", I developed a chess project using C#. The project simulates a standard chess game, featuring full game logic, move validation, and piece movement rules. It was an excellent opportunity to improve my skills in object-oriented programming and apply concepts like inheritance, polymorphism, and exception handling. This project helped me solidify my understanding of C# and provided a practical challenge in coding complex game rules.
+During the C3# course on Udemy, I developed a chess project using C#. The project simulates a standard chess game and is played in the console. It features full game logic, move validation, and piece movement rules. This experience was an excellent opportunity to improve my skills in object-oriented programming and apply concepts like inheritance, polymorphism, and exception handling. The project helped me solidify my understanding of C# and provided a practical challenge in coding complex game rules.
 
 
 ## TechStack
