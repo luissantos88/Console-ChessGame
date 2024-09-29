@@ -1,7 +1,7 @@
 
 # Console-ChessGame
 
-![snakeGame](https://github.com/user-attachments/assets/f4d4411a-79cc-49fc-9635-3d855b2866e6)
+![jogo de xadrez capa](https://github.com/user-attachments/assets/a3db056d-fec8-4592-b1c2-7ee34d00f30d)
 
 ## Description
 
