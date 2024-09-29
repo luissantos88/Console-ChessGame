@@ -32,6 +32,9 @@ namespace xadrez_console
 
                         Console.WriteLine();
                         Console.Write("Destiny: ");
+                  
+                       // add message en passant or promotion
+
                         Position destiny = Screen.readChessPosition().toPosition();
                         chessGame.validateDestintyPosition(orign, destiny);
 

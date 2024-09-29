@@ -24,7 +24,7 @@ namespace Xadrez_console
             {
                 Console.WriteLine("CHECKMATE!!!!!");
                 Console.WriteLine("The winner is : " + chessGame.atualPlayer);
-            }           
+            }                     
         }
         public static void printCapturedPieces(ChessGame chessGame)
         {

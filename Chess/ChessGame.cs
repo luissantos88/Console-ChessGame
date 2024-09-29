@@ -23,7 +23,7 @@ namespace Chess
             atualPlayer = Colour.White;
             finish = false;
             check = false;
-            openToEnPassant = null;
+            openToEnPassant = null;           
             pieces = new HashSet<Piece>();
             captured = new HashSet<Piece>();
             placePieces();
@@ -63,7 +63,7 @@ namespace Chess
             if (p is Pawn)
             {
                 if (orign.column != destiny.column && capturePiece == null)
-                {
+                {                  
                     Position pawnAdversaryPos;
                     {
                         if (p.colour == Colour.White)
@@ -80,10 +80,6 @@ namespace Chess
                     }
                 }
             }
-
-
-
-
             return capturePiece;
         }
         public void cancelMovement(Position orign, Position destiny, Piece capturedPiece)
@@ -211,7 +207,7 @@ namespace Chess
             if (!gameBoard.piece(orign).possibleMovement(destiy))
             {
                 throw new BoardException("Destiny position is invalid!!!");
-            }
+            }         
         }
         public void changePlayer()
         {

@@ -72,7 +72,7 @@ namespace xadrez
                     if (gameBoard.positionIsValid(right) && thereIsEnemy(right) && gameBoard.piece(right) == chessGame.openToEnPassant)
                     {
                         mat[right.line - 1, right.column] = true;
-                    }
+                    }                  
                 }
             }
             else
@@ -112,7 +112,7 @@ namespace xadrez
                     if (gameBoard.positionIsValid(right) && thereIsEnemy(right) && gameBoard.piece(right) == chessGame.openToEnPassant)
                     {
                         mat[right.line + 1, right.column] = true;
-                    }
+                    }                  
                 }
             }
             return mat;
